@@ -1,0 +1,24 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h2>Reject User: {{ user.username }}</h2>
+
+  <p>Are you sure you want to reject the user and remove their account? Please provide a comment below explaining the rejection.</p>
+
+  <form method="POST">
+    {% csrf_token %}
+    
+    <!-- Display form fields for the comment input -->
+    <div class="form-group">
+      <label for="id_comment">Rejection Comment</label>
+      {{ form.comment|as_widget }}
+    </div>
+
+    <!-- Submit button for rejection -->
+    <button type="submit" class="btn btn-danger">Reject User</button>
+  </form>
+
+  <br>
+
+  <p><a href="{% url 'approve_users' %}">Back to User Approval List</a></p>
+{% endblock %}

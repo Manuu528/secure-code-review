@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Frequently Asked Questions</h2>
+
+<!-- Static FAQ section -->
+<div class="faq-container">
+    <div class="faq-item">
+        <h3>What is this platform?</h3>
+        <p>This platform is a secure code review tool to detect vulnerabilities and potential threats in your code.</p>
+    </div>
+
+    <div class="faq-item">
+        <h3>How do I scan my code?</h3>
+        <p>You can upload your code file through the "Scan Code" section. The platform will check for vulnerabilities like SQL injections.</p>
+    </div>
+
+    <div class="faq-item">
+        <h3>What languages does this tool support?</h3>
+        <p>We currently support Python, Java, PHP, JavaScript, and more. Check the documentation for a full list.</p>
+    </div>
+
+    <div class="faq-item">
+        <h3>How do I submit feedback?</h3>
+        <p>You can provide feedback on the platform's functionality by visiting the "Feedback" section on your dashboard.</p>
+    </div>
+</div>
+
+<!-- Dynamic FAQ section from database -->
+<h3>Other FAQs:</h3>
+<ul>
+    {% for faq in faqs %}
+        <li>
+            <strong>{{ faq.question }}</strong><br>
+            {{ faq.answer }}
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

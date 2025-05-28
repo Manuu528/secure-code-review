@@ -1,0 +1,17 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+  <h2>Reject Users</h2>
+  <p>Are you sure you want to reject the following users?</p>
+  <ul>
+    {% for user in users %}
+      <li>{{ user.username }} ({{ user.email }})</li>
+    {% endfor %}
+  </ul>
+
+  <p>Please provide a reason for rejecting the users:</p>
+  <form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Reject and Send Email" class="default">
+  </form>
+  
+{% endblock %}

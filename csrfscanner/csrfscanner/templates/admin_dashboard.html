@@ -1,0 +1,52 @@
+<!-- templates/admin_dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="max-w-6xl mx-auto py-10 px-6">
+        <h1 class="text-3xl font-bold mb-6 text-center">Admin Dashboard</h1>
+
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <table class="min-w-full leading-normal">
+                <thead>
+                    <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                        <th class="py-3 px-6 text-left">Username</th>
+                        <th class="py-3 px-6 text-left">Email</th>
+                        <th class="py-3 px-6 text-left">Approved</th>
+                        <th class="py-3 px-6 text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr class="border-b border-gray-200 hover:bg-gray-100">
+                        <td class="py-3 px-6 text-left">{{ user.username }}</td>
+                        <td class="py-3 px-6 text-left">{{ user.email }}</td>
+                        <td class="py-3 px-6 text-left">
+                            {% if user.is_approved %}
+                                <span class="text-green-600 font-semibold">Approved</span>
+                            {% else %}
+                                <span class="text-red-500 font-semibold">Pending</span>
+                            {% endif %}
+                        </td>
+                        <td class="py-3 px-6 text-center space-x-2">
+                            {% if not user.is_approved %}
+                            <a href="{% url 'approve_user' user.id %}" class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded-md text-sm">Approve</a>
+                            {% endif %}
+                            <a href="{% url 'remove_user' user.id %}" class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded-md text-sm">Delete</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center py-5 text-gray-500">No users found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

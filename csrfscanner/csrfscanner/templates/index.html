@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSRF Scanner with Blockchain</title>
+    <style>
+        /* General styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2d89ef;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.8em;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 20px;
+        }
+
+        input[type="url"],
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 1em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="url"]:focus {
+            border-color: #2d89ef;
+            outline: none;
+            box-shadow: 0 0 5px rgba(45, 137, 239, 0.5);
+        }
+
+        button {
+            background-color: #2d89ef;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1a6dc1;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #aaa;
+        }
+
+        footer a {
+            color: #2d89ef;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        CSRF Scanner with Blockchain
+    </header>
+    <main>
+        <h1>Scan for CSRF Vulnerabilities</h1>
+        <p>
+            Enter the URL of the website you'd like to scan for CSRF vulnerabilities. 
+            Our system uses blockchain to ensure the integrity and transparency of the scanning process.
+        </p>
+
+        <form id="csrf-scanner-form">
+            <label for="url">Website URL:</label>
+            <input type="url" id="url" name="url" placeholder="https://example.com" required>
+            <button type="submit">Start Scan</button>
+        </form>
+
+        <div id="result" class="result" style="display: none;">
+            <h2>Scan Results</h2>
+            <p id="scan-status">Scanning...</p>
+        </div>
+    </main>
+    <footer>
+        &copy; 2025 CSRF Scanner with Blockchain. Made with ❤️ by <a href="#">Your Team</a>.
+    </footer>
+
+    <script>
+        // Example JavaScript for handling the form submission
+        document.getElementById('csrf-scanner-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const url = document.getElementById('url').value;
+
+            const resultDiv = document.getElementById('result');
+            const scanStatus = document.getElementById('scan-status');
+
+            resultDiv.style.display = 'block';
+            scanStatus.textContent = `Scanning the URL: ${url}`;
+
+            // Simulate blockchain verification process (you can replace this with actual API calls)
+            setTimeout(() => {
+                scanStatus.textContent = 'Scan completed. No CSRF vulnerabilities found!';
+            }, 3000);
+        });
+    </script>
+</body>
+</html>

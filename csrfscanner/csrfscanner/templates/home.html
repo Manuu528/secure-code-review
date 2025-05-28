@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure Code Review Bot</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      max-width: 900px;
+      width: 90%;
+      text-align: center;
+    }
+
+    .title {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 4.5rem;
+      font-weight: bold;
+      background: linear-gradient(90deg, #ff8a00, #e52e71);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1.5rem;
+      text-shadow: 2px 2px 12px rgba(0, 0, 0, 0.4);
+      font-style: normal;
+    }
+
+    @media (max-width: 768px) {
+      .title {
+        font-size: 3rem;
+      }
+    }
+
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.9rem;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glass">
+    <h1 class="title">Welcome to Secure Code Review Bot System</h1>
+    <p class="text-lg text-white/80 mb-6">
+      Your AI-powered assistant for scanning and securing code against  SQL injection Vulnerability.
+    </p>
+    <a href="register" class="inline-block px-6 py-3 bg-gradient-to-r from-pink-500 to-yellow-500 text-white font-semibold rounded-full shadow-lg transition transform hover:scale-105 duration-300">
+      Get Started
+    </a>
+    <div class="mt-10 grid md:grid-cols-3 gap-6 text-left">
+      <div class="bg-white/10 p-4 rounded-lg shadow-md hover:shadow-xl transition">
+        <h3 class="text-pink-400 text-xl font-bold mb-2">🔍 Vulnerability Scanner</h3>
+        <p class="text-sm text-white/80">Detects code vulnerabilities using AI algorithms tailored for modern web apps.</p>
+      </div>
+      <div class="bg-white/10 p-4 rounded-lg shadow-md hover:shadow-xl transition">
+        <h3 class="text-yellow-400 text-xl font-bold mb-2">⚡ Real-time Feedback</h3>
+        <p class="text-sm text-white/80">Receive instant insights and suggestions for fixing security issues.</p>
+      </div>
+      <div class="bg-white/10 p-4 rounded-lg shadow-md hover:shadow-xl transition">
+        <h3 class="text-blue-400 text-xl font-bold mb-2">🔐 Secure Practices</h3>
+        <p class="text-sm text-white/80">Improve your codebase with industry best practices built-in.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="text-white mt-10">
+    &copy; 2025 Secure Code Review Bot. All rights reserved.
+  </footer>
+
+</body>
+</html>

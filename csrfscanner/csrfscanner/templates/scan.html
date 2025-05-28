@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Scan Code - Secure Code Review Bot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 2.5rem;
+      border-radius: 20px;
+      max-width: 550px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      color: #fff;
+      transition: transform 0.3s ease;
+    }
+
+    .container:hover {
+      transform: translateY(-5px);
+    }
+
+    h1 {
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+      font-size: 1.75rem;
+    }
+
+    input[type="file"] {
+      width: 100%;
+      padding: 14px;
+      margin: 1rem 0;
+      border-radius: 12px;
+      border: none;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.85);
+      color: #333;
+      cursor: pointer;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      margin-top: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .scan-btn {
+      background: linear-gradient(to right, #ff758c, #ff7eb3);
+      color: white;
+    }
+
+    .scan-btn:hover {
+      background: linear-gradient(to right, #ff5a7c, #ff6ba0);
+    }
+
+    .action-btn {
+      background: linear-gradient(to right, #00b894, #55efc4);
+      color: white;
+      flex: 1;
+    }
+
+    .action-btn:hover {
+      background: linear-gradient(to right, #00a37a, #3ddfb3);
+    }
+
+    .result-box {
+      margin-top: 2rem;
+      text-align: left;
+      padding: 1.2rem;
+      background: rgba(255, 255, 255, 0.15);
+      border-left: 6px solid #ff7eb3;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 1.2rem;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      color: #ffe6f0;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 500px) {
+      .btn-group {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔍 Scan Your Code File</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="file" name="file" required />
+      <button type="submit" class="btn scan-btn">Scan</button>
+    </form>
+
+    {% if result %}
+    <div class="result-box">
+      <h3>Scan Results:</h3>
+      <p>{{ result }}</p>
+
+      <div class="btn-group">
+        <a href="{% url 'view_results' %}" class="btn action-btn">View Results</a>
+      </div>
+    </div>
+    {% endif %}
+
+    <a href="/" class="back-link">← Back to Home</a>
+  </div>
+</body>
+</html>

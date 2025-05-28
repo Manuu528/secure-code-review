@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Main content container -->
+<div class="help-container">
+    <h2 class="help-heading">Help Page</h2>
+    <p>If you need assistance, you can reach out to our support via email or submit feedback through the dashboard.</p>
+    
+    <!-- Helpful Links Section -->
+    <div class="help-links">
+        <ul>
+            <li>Need account access? <a href="mailto:manuuhchepkwony1@gmail.com">Contact admin</a>.</li>
+            <li>Use the Scan feature to analyze your code for SQL injection risks.</li>
+        </ul>
+    </div>
+    
+    <!-- Contact Information Section -->
+    <h3 class="contact-heading">Contact Information</h3>
+    <p>If you need further assistance, feel free to contact us through the following platforms:</p>
+    <ul class="contact-list">
+        <li>Email: <a href="mailto:manuuhchepkwony1@gmail.com">manuuhchepkwony1@gmail.com</a></li>
+        <li>WhatsApp: <a href="https://wa.me/254705485471">+254705485471</a></li>
+        <li>Twitter: <a href="https://twitter.com/@yourhandle">@yourhandle</a></li>
+        <li>Facebook: <a href="https://facebook.com/yourpage">Your Facebook Page</a></li>
+        <li>Instagram: <a href="https://instagram.com/yourhandle">Your Instagram Handle</a></li>
+        <li>Telegram: <a href="https://t.me/yourhandle">Your Telegram Handle</a></li>
+    </ul>
+</div>
+
+{% endblock %}
+
+{% block styles %}
+<style>
+/* General page styling */
+.help-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.help-container:hover {
+    transform: translateY(-5px);
+}
+
+.help-heading {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.help-links {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.help-links ul {
+    padding-left: 20px;
+}
+
+.help-links li {
+    margin-bottom: 8px;
+}
+
+.contact-heading {
+    font-size: 1.8rem;
+    color: #333;
+    margin-top: 30px;
+    font-weight: 600;
+}
+
+.contact-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.contact-list li {
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+}
+
+.contact-list a {
+    color: #00aaff;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.contact-list a:hover {
+    color: #0088cc;
+    transform: translateX(5px);
+}
+
+/* Adding icons to social media links */
+.contact-list a::before {
+    content: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Font_Awesome_5_brands_twitter.svg/1024px-Font_Awesome_5_brands_twitter.svg.png');
+    margin-right: 8px;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+.contact-list a[href*="whatsapp"]::before {
+    content: url('https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg');
+}
+
+.contact-list a[href*="facebook"]::before {
+    content: url('https://upload.wikimedia.org/wikipedia/commons/6/6b/Facebook_Logo_2023.png');
+}
+
+.contact-list a[href*="instagram"]::before {
+    content: url('https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg');
+}
+
+.contact-list a[href*="telegram"]::before {
+    content: url('https://upload.wikimedia.org/wikipedia/commons/e/ec/Telegram_Logo_2023.png');
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+    .help-container {
+        padding: 20px;
+    }
+
+    .help-heading {
+        font-size: 2rem;
+    }
+
+    .contact-heading {
+        font-size: 1.5rem;
+    }
+
+    .contact-list li {
+        font-size: 1rem;
+    }
+}
+</style>
+{% endblock %}

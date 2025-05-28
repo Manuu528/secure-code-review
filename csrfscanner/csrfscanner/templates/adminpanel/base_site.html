@@ -1,0 +1,17 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">Your Admin</a></h1>
+{% endblock %}
+
+{% block nav-global %}
+<div style="margin-top: 10px;">
+    <a href="{% url 'admin_help' %}" class="button">Help</a>
+    <a href="{% url 'admin_faq' %}" class="button">FAQ</a>
+    <a href="{% url 'admin_feedback' %}" class="button">Feedback</a>
+    <form action="{% url 'admin:index' %}" method="get" style="display:inline;">
+        <input type="text" name="q" placeholder="Search..." />
+    </form>
+</div>
+{% endblock %}

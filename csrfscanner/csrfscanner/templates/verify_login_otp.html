@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .message {
+            margin-bottom: 1rem;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.95rem;
+        }
+        .message.error {
+            background-color: rgba(255, 0, 0, 0.2);
+            border: 1px solid red;
+            color: #fff;
+        }
+        .message.success {
+            background-color: rgba(0, 128, 0, 0.2);
+            border: 1px solid limegreen;
+            color: #fff;
+        }
+        input {
+            padding: 10px;
+            font-size: 1rem;
+            width: 80%;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: none;
+        }
+        .btn {
+            padding: 12px 25px;
+            font-size: 1rem;
+            color: white;
+            background: #ff7eb3;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        .btn:hover {
+            background: #ff5a92;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Enter the OTP sent to your email</h2>
+
+        <!-- Message display -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="otp" placeholder="Enter OTP" required>
+            <br>
+            <button type="submit" class="btn">Verify OTP</button>
+        </form>
+    </div>
+</body>
+</html>

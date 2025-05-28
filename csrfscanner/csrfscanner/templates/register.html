@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register</title>
+  <style>
+    /* Your existing styles remain unchanged */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body {
+      display: flex; justify-content: center; align-items: center;
+      height: 100vh; background: linear-gradient(to right, #6a11cb, #2575fc); padding: 20px;
+    }
+    .container {
+      background: #ffffff; padding: 2.5rem; border-radius: 12px;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+      max-width: 400px; width: 100%; text-align: center;
+    }
+    .container:hover { transform: scale(1.02); }
+    h1 { color: #333; font-size: 26px; margin-bottom: 20px; font-weight: 600; }
+    .form-group { margin-bottom: 1rem; text-align: left; position: relative; }
+    label { font-weight: 500; color: #444; display: block; margin-bottom: 5px; }
+    input {
+      width: 100%; padding: 12px; border: 1px solid #ccc;
+      border-radius: 8px; font-size: 16px;
+    }
+    input:focus {
+      border-color: #2575fc; outline: none;
+      box-shadow: 0 0 8px rgba(37, 117, 252, 0.2);
+    }
+    .btn {
+      width: 100%; padding: 14px;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: white; border: none; border-radius: 8px;
+      font-size: 17px; font-weight: 600;
+      cursor: pointer; margin-top: 15px;
+    }
+    .btn:hover {
+      background: linear-gradient(to right, #2575fc, #6a11cb);
+      transform: translateY(-2px); box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    .link { margin-top: 1rem; font-size: 14px; }
+    .link a { color: #2575fc; text-decoration: none; font-weight: bold; }
+    .link a:hover { text-decoration: underline; }
+
+    .toggle-password {
+      position: absolute;
+      top: 37px;
+      right: 15px;
+      cursor: pointer;
+      user-select: none;
+      color: #777;
+    }
+
+    .error {
+      color: red;
+      font-size: 13px;
+      margin-top: -5px;
+      margin-bottom: 10px;
+    }
+
+    /* Styles for message container */
+    .alert-container {
+      margin-bottom: 15px;
+    }
+    .alert {
+      color: white;
+      background-color: red;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Create an Account</h1>
+    <form id="registerForm" method="POST" action="{% url 'register' %}">
+      {% csrf_token %}
+      
+      <!-- Display Django messages here -->
+      {% if messages %}
+        <div class="alert-container">
+          {% for message in messages %}
+            <div class="alert">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+      
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email (Gmail only)</label>
+        <input type="email" id="email" name="email" required>
+        <div class="error" id="emailError"></div>
+      </div>
+      <div class="form-group">
+        <label for="password1">Password</label>
+        <input type="password" id="password1" name="password1" required>
+        <span class="toggle-password" onclick="togglePassword('password1')">👁️</span>
+        <div class="error" id="passwordError"></div>
+      </div>
+      <div class="form-group">
+        <label for="password2">Confirm Password</label>
+        <input type="password" id="password2" name="password2" required>
+        <span class="toggle-password" onclick="togglePassword('password2')">👁️</span>
+        <div class="error" id="confirmError"></div>
+      </div>
+      <button type="submit" class="btn">Register</button>
+      <div class="link">
+        <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function togglePassword(id) {
+      const input = document.getElementById(id);
+      input.type = input.type === "password" ? "text" : "password";
+    }
+
+    document.getElementById("registerForm").addEventListener("submit", function (e) {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password1").value;
+      const confirmPassword = document.getElementById("password2").value;
+
+      let valid = true;
+
+      // Gmail validation
+      if (!email.endsWith("@gmail.com")) {
+        document.getElementById("emailError").textContent = "Email must be a Gmail address.";
+        valid = false;
+      } else {
+        document.getElementById("emailError").textContent = "";
+      }
+
+      // Password rules
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=]).{8,}$/;
+      if (!passwordRegex.test(password)) {
+        document.getElementById("passwordError").textContent =
+          "Password must be at least 8 characters, include uppercase, lowercase, number, and special character.";
+        valid = false;
+      } else {
+        document.getElementById("passwordError").textContent = "";
+      }
+
+      // Confirm password
+      if (password !== confirmPassword) {
+        document.getElementById("confirmError").textContent = "Passwords do not match.";
+        valid = false;
+      } else {
+        document.getElementById("confirmError").textContent = "";
+      }
+
+      if (!valid) e.preventDefault();
+    });
+  </script>
+</body>
+</html>

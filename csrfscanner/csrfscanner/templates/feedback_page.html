@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat with Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --user-color: #d1e7dd;
+            --admin-color: #f8d7da;
+            --button-color: #0d6efd;
+            --button-hover: #0a58ca;
+            --background: #f8f9fa;
+            --text: #212529;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #5a6268;
+        }
+
+        #chat-box {
+            height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #fefefe;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            max-width: 75%;
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            border-radius: 16px;
+            position: relative;
+            word-wrap: break-word;
+        }
+
+        .user-message {
+            background-color: var(--user-color);
+            align-self: flex-end;
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .admin-message {
+            background-color: var(--admin-color);
+            align-self: flex-start;
+            margin-right: auto;
+            text-align: left;
+        }
+
+        .timestamp {
+            display: block;
+            font-size: 11px;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+
+        form {
+            display: flex;
+            gap: 10px;
+        }
+
+        textarea {
+            flex: 1;
+            resize: none;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            outline: none;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: var(--button-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background-color: var(--button-hover);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            textarea {
+                font-size: 13px;
+            }
+
+            button {
+                padding: 10px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="{% url 'dashboard' %}" class="back-button">← Back to Dashboard</a>
+
+    <h2>Chat with Admin</h2>
+
+    <div id="chat-box"></div>
+
+    <form id="feedback-form" method="post">
+        {% csrf_token %}
+        <textarea name="message" id="message" rows="2" placeholder="Type your message..." required></textarea>
+        <button type="submit">Send</button>
+    </form>
+</div>
+
+<script>
+    function loadMessages() {
+        fetch("{% url 'get_messages' %}")
+            .then(response => response.json())
+            .then(data => {
+                const box = document.getElementById("chat-box");
+                box.innerHTML = '';
+                data.messages.forEach(msg => {
+                    const div = document.createElement("div");
+                    div.className = "message " + (msg.is_admin ? "admin-message" : "user-message");
+                    div.innerHTML = `
+                        <span>${msg.message}</span>
+                        <span class="timestamp">${msg.timestamp}</span>
+                    `;
+                    box.appendChild(div);
+                });
+                box.scrollTop = box.scrollHeight;
+            });
+    }
+
+    document.getElementById("feedback-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const form = this;
+        const message = document.getElementById("message").value.trim();
+        if (!message) return;
+        fetch("", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": form.querySelector("[name=csrfmiddlewaretoken]").value,
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `message=${encodeURIComponent(message)}`
+        }).then(() => {
+            document.getElementById("message").value = "";
+            loadMessages();
+        });
+    });
+
+    loadMessages();
+    setInterval(loadMessages, 5000);
+</script>
+
+</body>
+</html>
